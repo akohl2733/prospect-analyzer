@@ -8,10 +8,9 @@ sequences_seen = 1.49       # rough estimate of amount of sequences contacts hav
 if __name__ == "__main__":
     df = load_contacts("contacts.csv")
 
-    kw = ['space']
+    kw = ['provost', 'president', 'chancellor']
 
     search = ProspectSearcher(df)
     peeps = search.filter_by_keywords(kw)
     
-
     search.percent_booked(peeps, sequences_seen)

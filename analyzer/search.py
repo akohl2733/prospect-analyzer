@@ -34,4 +34,5 @@ class ProspectSearcher:
         total_contacts = len(df)
         total_meetings = df["meeting"].sum()
         rate = total_meetings / (total_contacts * sequences)
+        print(f'\nYou targeted {total_contacts} over the past 6 months and enrolled ~{round(sequences * total_contacts)}')
         print(f"Booking rate per sequence: {rate:.4%}")
