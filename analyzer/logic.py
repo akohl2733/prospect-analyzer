@@ -13,6 +13,56 @@ class Prospect:
     industry: str
     last_call: str
 
+    def get_role_category(self) -> str:
+        title = str(self.title).lower()
+        if "president" == title or "chancellor" in title:
+            return "President/Chancellor"
+        elif "provost" in title or "academic affairs" in title:
+            return "Provost/Academic Affairs"
+        elif "vp" in title or "vice president" in title:
+            return "Vice President"
+        elif "executive director" in title or "exec director" in title:
+            return "Executive Director"
+        elif "director" in title:
+            return "Director"
+        elif "dean" in title:
+            return "Dean"
+        elif "manager" in title:
+            return "Manager"
+        elif "analyst" in title:
+            return "Analyst"
+        elif "head" in title:
+            return "Head"
+        elif "project" in title:
+            return "Project Manager"
+        elif "coordinator" in title:
+            return "Coordinator"
+        else:
+            return "other"
+        
+    def get_functional_group(self) -> str:
+        title = str(self.title).lower()
+        if "space" in title:
+            return "Space"
+        elif "campus plan" in title or "capital" in title:
+            return "Campus/Capital"
+        elif "facilit" in title:
+            return "Facilities"
+        elif "academic" in title or "provost" in title:
+            return "Academic Affairs"
+        elif "finance" in title or "cfo":
+            return "finance"
+        elif "president" == title or "chancellor" == title:
+            return "President/Chancellor"
+        elif "workplace" in title:
+            return "Workplace"
+        elif "real estate" in title:
+            return "Real Estate"
+        else:
+            return "Other"
+        
+
+
 def load_contacts(file_path):
     import pandas as pd
 
