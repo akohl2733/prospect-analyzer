@@ -1,4 +1,4 @@
-from analyzer.logic import load_contacts, row_to_prospect
+from analyzer.logic import load_contacts, row_to_prospect, plot_booking_rate
 from analyzer.search import ProspectSearcher
 
 emails_per_person = 4.76    # constant emails sent per person (on average) -- 17500 / 3677 -- (Total Emails Sent / Total Contacts)
@@ -12,7 +12,8 @@ if __name__ == "__main__":
 
     summary = df.groupby(["role_category", "func_group"])["meeting"].agg(["count", "sum"])
     summary['booking_rate'] = (summary["sum"] / summary["count"]) * 100
-    print(summary.sort_values("booking_rate", ascending=False).round(2))  
+    print(summary.sort_values("booking_rate", ascending=False).round(2))
+    # plot_booking_rate(summary)
 
 
     # for _, row in df.iterrows():

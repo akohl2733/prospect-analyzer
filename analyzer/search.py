@@ -1,6 +1,5 @@
 import pandas as pd
 
-
 class ProspectSearcher:
 
     def __init__(self, dataframe: pd.DataFrame):

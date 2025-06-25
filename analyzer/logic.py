@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import matplotlib.pyplot as plt
 
 @dataclass
 class Prospect:
@@ -61,8 +62,6 @@ class Prospect:
         else:
             return "Other"
         
-
-
 def load_contacts(file_path):
     import pandas as pd
 
@@ -82,3 +81,10 @@ def row_to_prospect(row):
         industry=row["industry"],
         last_call=row["last_call"]
     )
+
+def plot_booking_rate(summary_df):
+    summary_df = summary_df.sort_values("booking_rate", ascending=False)
+    summary_df["booking_rate"].plot(kind="bar", figsize=(10, 6), title="Booking Rate by Role Category")
+    plt.ylabel("Booking Rate (%)")
+    plt.tight_layout()
+    plt.savefig("booking_rate_chart.png")
