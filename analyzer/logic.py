@@ -1,18 +1,22 @@
 from dataclasses import dataclass
+from datetime import datetime
 import matplotlib.pyplot as plt
 
 @dataclass
 class Prospect:
     name: str
+    curr_in_seq: bool
     title: str
-    email: str
-    owner: str
-    meeting: int
-    sequence_num: int
     company: str
-    last_touch: str
-    industry: str
-    last_call: str
+    state: str
+    num_of_seq: int
+    num_of_touches: int
+    create_date: datetime
+    last_seq: int
+    last_seq_end_date: datetime
+    last_contacted: datetime
+    last_engagement_date: datetime
+    meeting_booked: int
 
     def get_role_category(self) -> str:
         title = str(self.title).lower()
@@ -70,16 +74,19 @@ def load_contacts(file_path):
     
 def row_to_prospect(row):
     return Prospect(
-        name=row["name"],
-        title=row["title"],
-        email=row["email"],
-        owner=row["owner"],
-        meeting=row["meeting"],
-        sequence_num=row["sequence_num"],
-        company=row["company"],
-        last_touch=row["last_touch"],
-        industry=row["industry"],
-        last_call=row["last_call"]
+        name=row["Name"],
+        curr_in_seq=row["Currently In Sequence"],
+        title=row["Job Title"],
+        company=row["Company"],
+        state=row["State"],
+        num_of_seq=row["Number of Sequences Enrolled"],
+        num_of_touches=row["Number of Sales Activities"],
+        create_date=row["Create Date"],
+        last_seq=row['Last Sequence Enrolled'],
+        last_seq_end_date=row["Last Sequence Ended Date"],
+        last_contacted=row["Last Contacted"],
+        last_engagement_date=row["Last Engagement Date"],
+        meeting_booked=row["Meeting Booked"],
     )
 
 def plot_booking_rate(summary_df):
