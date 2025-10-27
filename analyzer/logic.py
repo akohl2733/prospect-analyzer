@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from datetime import datetime
 import matplotlib.pyplot as plt
+import pandas as pd
+
 
 @dataclass
 class Prospect:
@@ -55,8 +57,8 @@ class Prospect:
             return "Facilities"
         elif "academic" in title or "provost" in title:
             return "Academic Affairs"
-        elif "finance" in title or "cfo":
-            return "finance"
+        elif "finance" in title or "cfo" in title:
+            return "Finance"
         elif "president" == title or "chancellor" == title:
             return "President/Chancellor"
         elif "workplace" in title:
@@ -65,13 +67,15 @@ class Prospect:
             return "Real Estate"
         else:
             return "Other"
-        
+
+
 def load_contacts(file_path):
     import pandas as pd
 
     df = pd.read_csv(file_path)
     return df
-    
+
+
 def row_to_prospect(row):
     return Prospect(
         name=row["Name"],
@@ -89,9 +93,24 @@ def row_to_prospect(row):
         meeting_booked=row["Meeting Booked"],
     )
 
+
 def plot_booking_rate(summary_df):
     summary_df = summary_df.sort_values("booking_rate", ascending=False)
     summary_df["booking_rate"].plot(kind="bar", figsize=(10, 6), title="Booking Rate by Role Category")
     plt.ylabel("Booking Rate (%)")
+    plt.xlabel("Titles")
     plt.tight_layout()
     plt.savefig("booking_rate_chart.png")
+
+
+def total_touches_analysis(df):
+    for _, row in df.iterrows():
+        counter = 0
+        total_activities = 0
+        total_sequences = 0
+        person = row_to_prospect(row)
+        if person.meeting_booked != 0:
+            counter += 1
+            total_activities += person.num_of_touches
+            total_sequences += person.num_of_seq
+        return (total_sequences / counter, total_activities / counter)
